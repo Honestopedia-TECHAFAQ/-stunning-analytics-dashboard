@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .sidebar {
+      background-color: #ffffff;
+      color: #fff;
+      padding: 20px;
+      height: 100vh;
+      position: fixed;
+      width: 240px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+      color: #ffc107; 
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+      color: #000000;
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #495057; 
+    }
+
+    .content {
+      padding: 20px;
+      margin-left: 240px; 
+    }
+
+    .card {
+      margin-top: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .card-text {
+      font-size: 1.1rem;
+      color: #666;
+    }
+
+    .chart-container {
+      position: relative;
+      margin-top: 30px;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .icon {
+      font-size: 18px;
+      margin-right: 10px;
+      color: #000000; 
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #ffffff;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 sidebar">
+      <h2>Dashboard</h2>
+      <ul>
+        <li><a href="#"><i class="fas fa-home icon"></i> Home</a></li>
+        <li><a href="#"><i class="fas fa-chart-line icon"></i> Analytics</a></li>
+        <li><a href="#"><i class="fas fa-file-alt icon"></i> Reports</a></li>
+        <li><a href="#"><i class="fas fa-cog icon"></i> Settings</a></li>
+      </ul>
+    </div>
+    <div class="col-md-9 content">
+      <h2>Welcome to Your Dashboard</h2>
+      <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Sales</h5>
+          <p class="card-text">$10,000 <span class="tooltip"><i class="fas fa-info-circle icon"></i><span class="tooltiptext">Total sales amount for the selected period.</span></span></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">New Users</h5>
+          <p class="card-text">100 <span class="tooltip"><i class="fas fa-info-circle icon"></i><span class="tooltiptext">Number of new user registrations during the selected period.</span></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var salesData = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [{
+      label: 'Sales',
+      data: [1000, 1200, 1500, 1300, 1600, 1800],
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }]
+  };
+
+  var salesOptions = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
+  var salesChart = new Chart(document.getElementById("salesChart"), {
+    type: 'line',
+    data: salesData,
+    options: salesOptions
+  });
+</script>
+</body>
+</html>
